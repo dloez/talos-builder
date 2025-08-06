@@ -1,0 +1,29 @@
+From 8c66a48b8b723d4db50d44009250ff94d01ad630 Mon Sep 17 00:00:00 2001
+From: David Lopez Saez <40007435+dloez@users.noreply.github.com>
+Date: Wed, 6 Aug 2025 18:23:56 +0200
+Subject: [PATCH] Revert to 4K pages configuration
+
+This patch reverts the page size configuration from 16K back to 4K pages
+while keeping all other Raspberry Pi 5 specific configurations.
+---
+ kernel/build/config-arm64 | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/build/config-arm64 b/kernel/build/config-arm64
+index 9b215b0..7e67714 100644
+--- a/kernel/build/config-arm64
++++ b/kernel/build/config-arm64
+@@ -432,8 +432,8 @@ CONFIG_ROCKCHIP_ERRATUM_3588001=y
+ CONFIG_SOCIONEXT_SYNQUACER_PREITS=y
+ # end of ARM errata workarounds via the alternatives framework
+ 
+-# CONFIG_ARM64_4K_PAGES is not set
+-CONFIG_ARM64_16K_PAGES=y
++CONFIG_ARM64_4K_PAGES=y
++# CONFIG_ARM64_16K_PAGES is not set
+ # CONFIG_ARM64_64K_PAGES is not set
+ # CONFIG_ARM64_VA_BITS_39 is not set
+ CONFIG_ARM64_VA_BITS_48=y
+-- 
+2.43.0
+

@@ -3,11 +3,14 @@ TALOS_VERSION = v1.10.5
 SBCOVERLAY_VERSION = main
 
 REGISTRY ?= ghcr.io
-REGISTRY_USERNAME ?= talos-rpi5
+REGISTRY_USERNAME ?= dloez
 
 TAG ?= $(shell git describe --tags --exact-match)
 
-EXTENSIONS ?= ghcr.io/siderolabs/gvisor:20250505.0@sha256:d7503b59603f030b972ceb29e5e86979e6c889be1596e87642291fee48ce380c
+EXTENSIONS ?= \
+	ghcr.io/siderolabs/gvisor:20250505.0@sha256:d7503b59603f030b972ceb29e5e86979e6c889be1596e87642291fee48ce380c \
+	ghcr.io/siderolabs/iscsi-tools:sha256-dadd0f9bd895543462c4bb28dbd0f4fbde1dfec015ff3fbb22744503a929ede6 \
+	ghcr.io/siderolabs/util-linux-tools:sha256-b858a0c26a69ae6de0468f5a580bf924aca666848f7a575a1ccddb0f4160124a
 
 PKG_REPOSITORY = https://github.com/siderolabs/pkgs.git
 TALOS_REPOSITORY = https://github.com/siderolabs/talos.git
@@ -58,6 +61,7 @@ checkouts-clean:
 patches-pkgs:
 	cd "$(CHECKOUTS_DIRECTORY)/pkgs" && \
 		git am "$(PATCHES_DIRECTORY)/siderolabs/pkgs/0001-Patched-for-Raspberry-Pi-5.patch"
+		git am "$(PATCHES_DIRECTORY)/siderolabs/pkgs/0002-Revert-to-4K-pages.patch"
 
 patches-talos:
 	cd "$(CHECKOUTS_DIRECTORY)/talos" && \
